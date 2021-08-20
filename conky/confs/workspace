@@ -1,0 +1,21 @@
+conky.config = {
+	use_spacer				= 'left',
+	pad_percents			= 3,
+	background				= false,
+	double_buffer			= true,
+	font					= 'DejaVu Sans Mono:size=10',
+	use_xft					= true,
+	alignment				= 'top_right',
+	gap_x					= 10,
+	gap_y					= 40,
+	own_window_argb_visual	= true,
+	own_window_argb_value	= 0,
+	own_window_type			= 'override',
+	own_window_hints		= 'undecorated,below,skip_taskbar,skip_pager,sticky',
+	own_window				= true,
+	update_interval			= 1.5,
+}
+
+conky.text = [[
+${exec /path/to/workspacer}
+]]

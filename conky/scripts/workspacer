@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# script slightly modified from post: https://www.reddit.com/r/i3wm/comments/8caexc/keep_workspace_numbers_consecutive/
+# credit to u/anotherRedditIdiot
+
+# This script makes workspace numbers consecutive if they aren't already 
+
+function getWorkspaceList
+{
+	i3-msg -t get_workspaces | jq '.[] | select(.num != -1 ) | .num' | sort --numeric-sort 
+}
+
+function main
+{
+	((i=1))
+	while IFS=$'\n' read -r workspace; do
+		i3-msg rename workspace "$workspace" to "$i" > /dev/null
+		((i++))
+	done < <(getWorkspaceList)
+}
+
+# get workspace names
+wmctrl -d | awk '{ print $NF }' > ~/.conky/used
+
+# checks if workspaces aren't consecutive, and runs main to rename them as necessary
+if [[ $(awk '$1!=p+1{print p+1"-"$1-1}{p=$1}' ~/.conky/used) ]]; then
+	main
+fi

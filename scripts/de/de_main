@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#feh --bg-fill /path/to/img
+
+xcompmgr &
+service network-manager start
+
+cat > /dev/null <<EOF
+# lock_file denotes this specific DE
+if [ ! -f ~/.lock_file ]; then
+	xrdb -merge ~/.Xresources
+	touch ~/.lock_file
+fi
+
+conky -c /path/to/conkyrc &
+...
+EOF
+
+i3

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# This script handles workspace switching:
+# You can't switch more than one empty workspace ahead
+# removes wrapping workspace switching as well
+
+cdesk=`xdotool get_desktop`
+let cdesk++
+
+ldesk=`wmctrl -l | tail -n 1 | awk '{ printf("%d", $2); }'`
+let ldesk++
+
+if [[ "$1" == "left" ]]; then
+
+	if [ $cdesk -gt 1 ]; then
+		i3-msg workspace prev
+	fi
+elif [[ "$1" == "right" ]]; then
+
+	if [ $cdesk -eq $ldesk ] || [ $cdesk -eq 1 ]; then
+		i3-msg workspace $((cdesk+1))
+	elif [ $cdesk -lt $ldesk ]; then
+		i3-msg workspace next
+	fi
+fi	
