@@ -1,0 +1,23 @@
+# This conky config runs the weather.sh script to get the current weather every 10 minutes
+
+conky.config = {
+  use_spacer = 'left',
+  pad_percents = 3,
+  background = false,
+  double_buffer = true,
+  font = 'DejaVu Sans Mono:size=10',
+  use_xft = true,
+  alignment = 'bottom_right',
+  gap_x = 10,
+  gap_y = 100,
+  own_window_argb_visual = true,
+  own_window_argb_value = 0,
+  own_window_type = 'override',
+  own_window_hints = 'undecorated,below,skip_taskbar,skip_pager,sticky',
+  own_window = true,
+  update_interval = 5.0,
+}
+
+conky.text = [[
+${execpi 600 ~/.conky/apps/weather/weather.sh}
+]]
